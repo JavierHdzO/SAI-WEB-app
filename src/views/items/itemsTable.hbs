@@ -1,6 +1,6 @@
 <div class="mainDiv">
 
-<!--
+  <!--
   <div class="containerCS container">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Añadir
@@ -21,7 +21,8 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4 mb-4">
     <div class="container">
       <div class="container-fluid">
-        <a class="navbar-brand btn btn-primary  addBtn" style="color: white; border-radius:5px" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir</a>
+        <a class="navbar-brand btn btn-primary  addBtn" style="color: white; border-radius:5px" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Añadir</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -36,18 +37,19 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="/items/search/computo">Cómputo</a></li>
                 <li><a class="dropdown-item" href="/notes/add">Add item</a></li>
-                <li><a class="dropdown-item" href="/users/logout">Logout</a></li>
               </ul>
             </div>
 
             <div class="nav-item">
               <div class="input-group nav-item mr-auto">
-                <div class="form-outline">
-                  <input type="search" id="form1" class="form-control" placeholder="Search" />
-                </div>
-                <button type="button" class="btn btn-primary">
-                  <i class="fas fa-search"></i>
-                </button>
+                <form action="/items/search/param" method="post" class="input-group">
+                  <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" placeholder="Search" name="itemSearch" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
               </div>
             </div>
           </div>

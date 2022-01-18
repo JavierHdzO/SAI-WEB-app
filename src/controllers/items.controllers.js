@@ -69,7 +69,7 @@ itemsCtrl.deleteItem = async ( req, res ) =>{
 
 //Search item
 
-  //Categorias
+  //Categories
 
   itemsCtrl.renderCategoriaPC = async ( req, res ) => 
   {
@@ -81,8 +81,18 @@ itemsCtrl.deleteItem = async ( req, res ) =>{
     }
   };
 
+
+  // Search any items
+
+  itemsCtrl.anyItemSearch = async ( req, res ) =>{
+    
+    try {
+      const {itemSearch} =  req.body ;
+      const items = await Item.find( {$text: {$search: itemSearch }}).lean();
+      res.render('items/itemsTable', { items });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
-
-
-
 module.exports = itemsCtrl;

@@ -1,4 +1,5 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, Query} = require('mongoose');
+
 
 const ItemSchema = new Schema({
 
@@ -34,4 +35,6 @@ const ItemSchema = new Schema({
     timestamps:true
 })
 
+
+ItemSchema.index( {descripcion:"text", marca:"text", serie:"text", ubicacion:"text", resguarda:"text"} );
 module.exports = model('Item', ItemSchema);

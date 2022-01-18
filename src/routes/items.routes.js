@@ -1,31 +1,38 @@
-const { Router } = require( "express");
-const  { renderTableItem, addItem, renderEditItem, EditItem, deleteItem, renderCategoriaPC } = require( "../controllers/items.controllers");
-const router =  Router();
-
-
-
+const { Router } = require("express");
+const {
+  renderTableItem,
+  addItem,
+  renderEditItem,
+  EditItem,
+  deleteItem,
+  renderCategoriaPC,
+  anyItemSearch,
+} = require("../controllers/items.controllers");
+const router = Router();
 
 //All items
-router.get('/items', renderTableItem);
+router.get("/items", renderTableItem);
 
 //Add
-router.post('/items/add', addItem  );
+router.post("/items/add", addItem);
 
 //Edit
-router.get('/items/:id/edit', renderEditItem);
+router.get("/items/:id/edit", renderEditItem);
 
-router.put('/items/:id/edit', EditItem);
+router.put("/items/:id/edit", EditItem);
 
 //Delete
-router.delete('/items/:id/delete', deleteItem);
+router.delete("/items/:id/delete", deleteItem);
 //View
 
+//Queries
 
-//Busquedas
+//Categories
 
-    //categorias
+router.get("/items/search/computo", renderCategoriaPC);
 
-    router.get('/items/search/computo', renderCategoriaPC);
+// Search any item
 
+router.post("/items/search/param", anyItemSearch);
 
 module.exports = router;
