@@ -9,6 +9,7 @@ const flash =  require('connect-flash');
 const session = require('express-session');
 const passport = require('passport')
 
+
 //Initializations
 const app = express();
 require('./config/passport');
@@ -16,6 +17,7 @@ require('./config/passport');
 
 //Settings
 app.set('port', process.env.PORT || 4000);
+
 app.set('views', path.join( __dirname, 'views'));
 
 app.engine(".hbs", engine({
@@ -49,14 +51,13 @@ app.use((req, res, next)=>{
     res.locals.error = req.flash('error');
     res.locals.user = req.user  || null;
     next();
-
 });
 
 //Routes
 app.use(require("./routes/index.routes"));
 app.use(require("./routes/notes.routes"));
 app.use(require("./routes/users.routes"));
-
+app.use(require("./routes/items.routes"));
 
 
 // Static files

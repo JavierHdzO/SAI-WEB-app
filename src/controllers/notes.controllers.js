@@ -44,5 +44,7 @@ notesCtrl.deleteNote = async ( req, res) => {
     res.redirect('/notes');
 }
 
+//Search items
+
 
 module.exports = notesCtrl;
