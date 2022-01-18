@@ -1,6 +1,6 @@
-import { config } from 'dotenv';
+require('dotenv').config();
 
-config();
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/test";
 
-export const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/test";
-export const PORT = process.env.PORT || 4000;
+module.exports = MONGODB_URI;
+//export const PORT = process.env.PORT || 4000;
