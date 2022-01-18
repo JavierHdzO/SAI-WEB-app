@@ -8,31 +8,33 @@ const {
   renderCategoriaPC,
   anyItemSearch,
 } = require("../controllers/items.controllers");
+
+const { isAuthenticated } = require('../helpers/auth');
 const router = Router();
 
 //All items
-router.get("/items", renderTableItem);
+router.get("/items", isAuthenticated ,renderTableItem);
 
 //Add
-router.post("/items/add", addItem);
+router.post("/items/add", isAuthenticated ,addItem);
 
 //Edit
-router.get("/items/:id/edit", renderEditItem);
+router.get("/items/:id/edit",isAuthenticated, renderEditItem);
 
-router.put("/items/:id/edit", EditItem);
+router.put("/items/:id/edit", isAuthenticated, EditItem);
 
 //Delete
-router.delete("/items/:id/delete", deleteItem);
+router.delete("/items/:id/delete", isAuthenticated,  deleteItem);
 //View
 
 //Queries
 
 //Categories
 
-router.get("/items/search/computo", renderCategoriaPC);
+router.get("/items/search/computo", isAuthenticated, renderCategoriaPC);
 
 // Search any item
 
-router.post("/items/search/param", anyItemSearch);
+router.post("/items/search/param", isAuthenticated, anyItemSearch);
 
 module.exports = router;
