@@ -8,6 +8,7 @@ const methodOverride= require('method-override');
 const flash =  require('connect-flash');
 const session = require('express-session');
 const passport = require('passport')
+const { PORT } = require('./config');
 
 
 //Initializations
@@ -16,7 +17,7 @@ require('./config/passport');
 
 
 //Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', PORT );
 
 app.set('views', path.join( __dirname, 'views'));
 
