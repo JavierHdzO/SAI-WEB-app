@@ -9,11 +9,14 @@ const flash =  require('connect-flash');
 const session = require('express-session');
 const passport = require('passport')
 const { PORT } = require('./config');
+const multer =  require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 
 //Initializations
 const app = express();
 require('./config/passport');
+
 
 
 //Settings
@@ -44,6 +47,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+const storage = multer.diskStorage({
+    destination: path.join(path.join( __dirname, 'public'), 'uploads'),
+    filename: ( req, file, callbakk) => {
+        callbakk( null, uuidv4() + path.extname(file.originalname).toLocaleLowerCase());
+    }
+});
+
+app.use(multer( {storage}).single('image'));
+
+
 
 //Global Variables
 app.use((req, res, next)=>{

@@ -7,6 +7,7 @@ const {
   deleteItem,
   renderCategoriaPC,
   anyItemSearch,
+  renderViewItem
 } = require("../controllers/items.controllers");
 
 const { isAuthenticated } = require('../helpers/auth');
@@ -17,6 +18,9 @@ router.get("/items", isAuthenticated ,renderTableItem);
 
 //Add
 router.post("/items/add", isAuthenticated ,addItem);
+
+//View
+router.get("/items/:id/view", isAuthenticated , renderViewItem);
 
 //Edit
 router.get("/items/:id/edit",isAuthenticated, renderEditItem);

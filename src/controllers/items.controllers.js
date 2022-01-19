@@ -1,24 +1,43 @@
 const itemsCtrl = {};
 const Item = require("../models/Item");
-const Swal = require('sweetalert2');
+const Swal = require("sweetalert2");
+const cloudinary = require("cloudinary");
+const fs = require("fs-extra");
+const { findById } = require("../models/Item");
+
+//Setting
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 let items = undefined;
 
 itemsCtrl.renderTableItem = async (req, res) => {
   try {
-
-      items = await Item.find().lean();
-      res.render("items/itemsTable", {items});
-
+    items = await Item.find().lean();
+    res.render("items/itemsTable", { items });
   } catch (error) {
     console.error(error);
   }
 };
 
-
 itemsCtrl.addItem = async (req, res) => {
+  let item;
   try {
-    const item = await Item(req.body);
+    if (req.file) {
+      const result = await cloudinary.v2.uploader.upload(req.file.path);
+      const newItem = req.body;
+      newItem.imageURL = result.secure_url;
+      newItem.public_id = result.public_id;
+      console.log(newItem);
+      item = await Item(newItem);
+      await fs.unlink(req.file.path);
+    } else {
+      item = await Item(req.body);
+    }
+
     await item.save();
     req.flash("success_msg", "item added successfully");
     res.redirect("/items");
@@ -28,41 +47,84 @@ itemsCtrl.addItem = async (req, res) => {
   }
 };
 
-//Edit items
-itemsCtrl.renderEditItem = async (req, res) => {
+//View Item
+
+itemsCtrl.renderViewItem = async (req, res) => {
   try {
-    const item =await Item.findById(req.params.id).lean();
-    //console.log(item);
-    res.render("items/editItem", {item} );
-  } catch (error) 
-  {
+    const item = await Item.findById(req.params.id);
+
+    res.render("items/viewItem", {item});
+  } catch (error) {
     console.error(error);
   }
-  
+};
+
+
+//Edit items
+
+
+itemsCtrl.renderEditItem = async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.id).lean();
+    res.render("items/editItem", { item });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 itemsCtrl.EditItem = async (req, res) => {
+  let item;
   try {
-    
-    const item = await Item.findByIdAndUpdate(req.params.id, req.body);
-    await item.save();
-    req.flash('success_msg','Item updated successfuly');
-    res.redirect('/items');
-    
+
+    console.log(req.file);
+    if (req.file) {
+      console.log(req.file);
+      const result = await cloudinary.v2.uploader.upload(req.file.path);
+      const newItem = req.body;
+      newItem.imageURL = result.secure_url;
+      newItem.public_id = result.public_id;
+
+      
+
+      item = await Item.findById( req.params.id ).lean();
+      console.log(item);
+
+      if( item.imageUR !== "#")
+      {
+        await cloudinary.v2.uploader.destroy(item.public_id);
+        
+      }
+
+      await Item.findByIdAndUpdate(req.params.id, newItem);
+      await fs.unlink(req.file.path);
+
+
+    } else {
+      item = await Item.findByIdAndUpdate(req.params.id, req.body);
+    }
+    req.flash("success_msg", "Item updated successfuly");
+    res.redirect("/items");
   } catch (error) {
     console.error(error);
   }
-  
 };
 
+
+
 //Delete item
-itemsCtrl.deleteItem = async ( req, res ) =>{
+
+itemsCtrl.deleteItem = async (req, res) => {
   try {
-    await Item.findByIdAndDelete( req.params.id );
-    req.flash('success_msg', 'item deleted successfuly');
-    res.redirect('/items');
+    const item = await Item.findByIdAndDelete(req.params.id);
+
+    if (item.public_id) {
+      await cloudinary.v2.uploader.destroy(item.public_id);
+    }
+
+    req.flash("success_msg", "item deleted successfuly");
+    res.redirect("/items");
   } catch (error) {
-    req.flash('success_msg', "item couldn't delete successfuly");
+    req.flash("success_msg", "item couldn't delete successfuly");
     console.error(error);
   }
 };
@@ -71,28 +133,25 @@ itemsCtrl.deleteItem = async ( req, res ) =>{
 
   //Categories
 
-  itemsCtrl.renderCategoriaPC = async ( req, res ) => 
-  {
-    try {
-      items = await Item.find( {'categoria':'Computo'}).lean();
-      res.render("items/itemsTable", { items });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+itemsCtrl.renderCategoriaPC = async (req, res) => {
+  try {
+    items = await Item.find({ categoria: "Computo" }).lean();
+    res.render("items/itemsTable", { items });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   // Search any items
 
-  itemsCtrl.anyItemSearch = async ( req, res ) =>{
-    
-    try {
-      const {itemSearch} =  req.body ;
-      const items = await Item.find( {$text: {$search: itemSearch }}).lean();
-      res.render('items/itemsTable', { items });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
+itemsCtrl.anyItemSearch = async (req, res) => {
+  try {
+    const { itemSearch } = req.body;
+    const items = await Item.find({ $text: { $search: itemSearch } }).lean();
+    res.render("items/itemsTable", { items });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = itemsCtrl;

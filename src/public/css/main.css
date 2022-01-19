@@ -166,3 +166,12 @@ input
         overflow: auto;
     }
 }
+
+
+/*Style image View*/
+
+.imgView
+{
+    height: 300px;
+    
+}

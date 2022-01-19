@@ -103,7 +103,7 @@
           </td>
 
           <td align="center">
-            <a class="far fa-eye"></a>
+            <a class="far fa-eye" href="/items/{{_id}}/view"></a>
           </td>
           <td align="center">
             <a href="/items/{{_id}}/edit" class="far fa-edit">
@@ -145,7 +145,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/items/add" method="post">
+        <form action="/items/add" method="post" enctype="multipart/form-data" >
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Clave</span>
             <input type="text" class="form-control" placeholder="Clave Unica" aria-label="Username"
@@ -209,7 +209,7 @@
           <hr />
           <div class="mb-3">
             <label for="formFile" class="form-label">Imagen</label>
-            <input class="form-control" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" />
+            <input class="form-control" type="file" id="formFile" accept="image/png, image/gif, image/jpeg, image/jpg" name="image" />
           </div>
           <div class="modal-footer">
             <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">

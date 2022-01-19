@@ -4,13 +4,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Editar el elemento del inventario
+          Vista de elemento del inventario
         </h5>
         <a type="button" class="btn-close" aria-label="Close" href="/items"></a>
       </div>
       <div class="modal-body">
-        <form action="/items/{{item._id}}/edit?_method=PUT" method="POST"  enctype="multipart/form-data">
-        <input type="hidden" name="_method" value="PUT">
+        <form action="/items" >
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Clave</span>
             <input type="text" class="form-control" placeholder="Clave Unica" aria-label="Username"
@@ -19,24 +18,24 @@
 
           <div class="input-group">
             <span class="input-group-text">Descripción</span>
-            <textarea class="form-control" aria-label="With textarea" name="descripcion" autofocus >{{item.descripcion}}</textarea>
+            <textarea class="form-control" aria-label="With textarea" name="descripcion" disabled >{{item.descripcion}}</textarea>
           </div>
           <br />
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Marca</span>
             <input type="text" class="form-control" placeholder="Marca" aria-label="Username"
-              aria-describedby="basic-addon1" name="marca"  value="{{item.marca}}"/>
+              aria-describedby="basic-addon1" name="marca"  value="{{item.marca}}" disabled/>
           </div>
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Serie </span>
             <input type="text" class="form-control" placeholder="Serie" aria-label="Username"
-              aria-describedby="basic-addon1" name="serie" value="{{item.serie}}" />
+              aria-describedby="basic-addon1" name="serie" value="{{item.serie}}" disabled />
           </div>
 
           <div class="input-group mb-3">
             <label class="input-group-text" for="inputGroupSelect01">Ubicación</label>
-            <select id="selUbi"  class="form-select" id="inputGroupSelect01" name="ubicacion">
+            <select id="selUbi"  class="form-select" id="inputGroupSelect01" name="ubicacion" disabled>
               <option selected >{{item.ubicacion}}</option>
               <option value="Sec. Administrativa">Sec. Administrativa</option>
               <option value="Lab. Microprocesadores">Lab. Microprocesadores</option>
@@ -48,7 +47,7 @@
           <div class="input-group mb-3">
             <label class="input-group-text" for="DataListResguarda">Resguarda</label>
             <input class="form-control" list="datalistOptions" id="DataListResguarda"
-              placeholder="Escriba para buscar..." name="resguarda" value="{{item.resguarda}}" />
+              placeholder="Escriba para buscar..." name="resguarda" value="{{item.resguarda}}"  disabled />
             <datalist id="datalistOptions">
               <option value="Emilio Castan Rocha"></option>
               <option value="Marcos Azuara Hernandez"></option>
@@ -61,9 +60,9 @@
           <div class="input-group mb-3">
             <label class="input-group-text" for="DataListResguarda">Categoria</label>
             <input class="form-control" list="datalistOptions" id="DataListResguarda"
-              placeholder="Escriba para buscar..." name="categoria" value="{{item.categoria}}"/>
+              placeholder="Escriba para buscar..." name="categoria" value="{{item.categoria}}" disabled/>
             <datalist id="datalistOptions">
-              <option value="Cómputo"></option>
+              <option value="Computo"></option>
               <option value="Herramienta"></option>
               <option value="Papeleria"></option>
               <option value="Inmobiliario"></option>
@@ -74,17 +73,14 @@
           <hr />
           <div class="mb-3">
             <label for="formFile" class="form-label">Imagen</label>
-            <input class="form-control" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" name="image"/>
+      
+              <img class="form-control  mx-auto d-block m-4 logo h-10 imgView" id="formFile" src="{{item.imageURL}}" alt="Vista" >
+
           </div>
           <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal" href="/items">
+            <a type="button" class="btn btn-danger" data-bs-dismiss="modal" href="/items">
               Cerrar
             </a>
-
-
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-              Confirmar
-            </button>
           </div>
         </form>
       </div>
