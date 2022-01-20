@@ -9,7 +9,7 @@
 
 
 a:-webkit-any-link {
-    color: -webkit-link;
+   /* color: -webkit-link;*/
     cursor: pointer;
 }
 
@@ -76,6 +76,7 @@ table
     width: 100%;
     border-collapse: collapse;
     height: fit-content;
+    table-layout: fixed;
 }
 
 
@@ -85,11 +86,26 @@ th, td
     border-collapse: collapse;
     padding: 8px;
     line-height: 1.42;
+    word-wrap:break-word;
+}
+.tdDescription
+{
+    width: 17%;
 }
 
 .buttonDelete
 {
     color: red;
+}
+
+.buttonEdit
+{
+    color: orange;
+}
+
+.buttonView
+{
+    color: blue;;
 }
 
 /*CONFIGURACION MODAL AGREGAR A INVENTARIO*/
@@ -106,6 +122,10 @@ a
     text-decoration: none;
     color: black;
 }
+
+
+
+
 
 
 /*Styles to table scroll*/

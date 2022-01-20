@@ -28,8 +28,7 @@ const ItemSchema = new Schema({
         required:true
     },
     imageURL:{
-        type:String,
-        default: "#"
+        type:String
     },
     public_id:{
         type:String

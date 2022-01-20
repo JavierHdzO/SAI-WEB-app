@@ -31,7 +31,6 @@ itemsCtrl.addItem = async (req, res) => {
       const newItem = req.body;
       newItem.imageURL = result.secure_url;
       newItem.public_id = result.public_id;
-      console.log(newItem);
       item = await Item(newItem);
       await fs.unlink(req.file.path);
     } else {
@@ -75,21 +74,16 @@ itemsCtrl.renderEditItem = async (req, res) => {
 itemsCtrl.EditItem = async (req, res) => {
   let item;
   try {
-
-    console.log(req.file);
     if (req.file) {
-      console.log(req.file);
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       const newItem = req.body;
       newItem.imageURL = result.secure_url;
       newItem.public_id = result.public_id;
 
-      
-
+    
       item = await Item.findById( req.params.id ).lean();
-      console.log(item);
 
-      if( item.imageUR !== "#")
+      if( item.imageUR )
       {
         await cloudinary.v2.uploader.destroy(item.public_id);
         

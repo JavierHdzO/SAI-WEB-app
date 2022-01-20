@@ -75,7 +75,7 @@
                 font-weight: bold;
               ">
           <th align="center">ID</th>
-          <th>Descripción</th>
+          <th class="tdDescription">Descripción</th>
           <th align="center">Marca</th>
           <th align="center">Serie</th>
           <th align="center">Ubicacion</th>
@@ -91,12 +91,16 @@
         {{#each items}}
         <tr>
           <td align="center">{{_id}}</td>
-          <td>{{descripcion}}</td>
+          <td class="tdDescription">{{descripcion}}</td>
           <td align="center">{{marca}}</td>
           <td align="center">{{serie}}</td>
           <td align="center">{{ubicacion}}</td>
           <td align="center">{{resguarda}}</td>
+          {{#if imageURL}}
+          <td align="center">Si</td>
+          {{else}}
           <td align="center">No</td>
+          {{/if}}
           <td align="center">
             <a href="/">
               <i class="far fa-calendar-alt"></i>
@@ -104,10 +108,10 @@
           </td>
 
           <td align="center">
-            <a class="far fa-eye" href="/items/{{_id}}/view"></a>
+            <a class="far fa-eye buttonView" href="/items/{{_id}}/view"></a>
           </td>
           <td align="center">
-            <a href="/items/{{_id}}/edit" class="far fa-edit">
+            <a href="/items/{{_id}}/edit" class="far fa-edit buttonEdit">
             </a>
           </td>
           <td align="center">

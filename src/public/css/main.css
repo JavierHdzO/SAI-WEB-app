@@ -23,6 +23,12 @@ table
     overflow-y: visible;
 }
 
+.buttonEdit{
+
+    color: yellow;
+}
+
+
 
 .mainDiv{
     height: 100%;
@@ -175,3 +181,4 @@ input
     height: 300px;
     
 }
+
