@@ -3,7 +3,7 @@ const Item = require("../models/Item");
 const Swal = require("sweetalert2");
 const cloudinary = require("cloudinary");
 const fs = require("fs-extra");
-const { findById } = require("../models/Item");
+const moment = require('moment');
 
 //Setting
 cloudinary.config({
@@ -17,15 +17,22 @@ let items = undefined;
 itemsCtrl.renderTableItem = async (req, res) => {
   try {
     items = await Item.find().lean();
+
+    items.forEach(item => {
+      item.daten = moment.utc(item.date).format("L");
+    });
     res.render("items/itemsTable", { items });
+
   } catch (error) {
     console.error(error);
   }
 };
 
 itemsCtrl.addItem = async (req, res) => {
+
   let item;
   try {
+    console.log( req.body );
     if (req.file) {
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       const newItem = req.body;
@@ -33,8 +40,9 @@ itemsCtrl.addItem = async (req, res) => {
       newItem.public_id = result.public_id;
       item = await Item(newItem);
       await fs.unlink(req.file.path);
-    } else {
-      item = await Item(req.body);
+    } else 
+    {
+      item = await Item(req.body); 
     }
 
     await item.save();
@@ -51,7 +59,7 @@ itemsCtrl.addItem = async (req, res) => {
 itemsCtrl.renderViewItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
-
+    item.daten = moment.utc(item.date).format("L");
     res.render("items/viewItem", {item});
   } catch (error) {
     console.error(error);
@@ -65,6 +73,7 @@ itemsCtrl.renderViewItem = async (req, res) => {
 itemsCtrl.renderEditItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id).lean();
+    item.daten = moment.utc(item.date).format("L");
     res.render("items/editItem", { item });
   } catch (error) {
     console.error(error);
@@ -130,6 +139,7 @@ itemsCtrl.deleteItem = async (req, res) => {
 itemsCtrl.renderCategoriaPC = async (req, res) => {
   try {
     items = await Item.find({ categoria: "Computo" }).lean();
+    
     res.render("items/itemsTable", { items });
   } catch (error) {
     console.error(error);

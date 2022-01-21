@@ -32,7 +32,13 @@ const ItemSchema = new Schema({
     },
     public_id:{
         type:String
+    },
+    date:
+    {
+        type: Date,
+
     }
+
 
 },{
     timestamps:true

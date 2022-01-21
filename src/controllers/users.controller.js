@@ -63,4 +63,5 @@ usersCtrl.logout = (req, res) => {
   res.redirect('/users/singin');
 };
 
+
 module.exports = usersCtrl;

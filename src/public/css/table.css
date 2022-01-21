@@ -93,6 +93,11 @@ th, td
     width: 17%;
 }
 
+.btnActions 
+{
+    width: 6%;
+}
+
 .buttonDelete
 {
     color: red;
