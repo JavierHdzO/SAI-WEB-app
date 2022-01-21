@@ -79,6 +79,12 @@ table
     table-layout: fixed;
 }
 
+@media only screen and (max-width: 600px) {
+    table {
+      table-layout: auto;
+    }
+  }
+
 
 th, td 
 {
@@ -127,6 +133,12 @@ a
     text-decoration: none;
     color: black;
 }
+
+@media only screen and (max-width: 1350px) {
+    table {
+      table-layout: auto;
+    }
+  }
 
 
 
