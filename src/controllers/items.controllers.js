@@ -17,7 +17,7 @@ let items = undefined;
 itemsCtrl.renderTableItem = async (req, res) => {
   try {
     items = await Item.find().lean();
-
+    console.log(items);
     items.forEach(item => {
       item.daten = moment.utc(item.date).format("L");
     });
@@ -157,5 +157,25 @@ itemsCtrl.anyItemSearch = async (req, res) => {
     console.error(error);
   }
 };
+
+/*
+itemsCtrl.dateSearch = async ( req, res ) => {
+  try {
+    
+    const items = await Item.find( { date:{ $gte: "", $lte: "" }});
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+*/
+
+
+
+/*const isEmpty = ( req = {} ) => {
+  //const {} = req.
+};
+*/
+ 
 
 module.exports = itemsCtrl;
