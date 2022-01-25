@@ -45,7 +45,7 @@ app.use(session({
     rolling:true,
     saveUninitialized: false,
     cookie:{
-        maxAge: 120000
+        maxAge: 300000
     }
 }));
 app.use(passport.initialize());
