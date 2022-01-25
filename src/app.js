@@ -42,7 +42,11 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: 'sproysai',
     resave: true,
-    saveUninitialized: true
+    rolling:true,
+    saveUninitialized: false,
+    cookie:{
+        maxAge: 120000
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());

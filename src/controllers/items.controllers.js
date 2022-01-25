@@ -17,7 +17,6 @@ let items = undefined;
 itemsCtrl.renderTableItem = async (req, res) => {
   try {
     items = await Item.find().lean();
-    console.log(items);
     items.forEach(item => {
       item.daten = moment.utc(item.date).format("L");
     });
