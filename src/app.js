@@ -77,10 +77,19 @@ app.use(require("./routes/index.routes"));
 app.use(require("./routes/notes.routes"));
 app.use(require("./routes/users.routes"));
 app.use(require("./routes/items.routes"));
-
+app.get('/session/destroy', ( req, res )=>{
+    req.session.destroy();
+});
 
 // Static files
 app.use(express.static(path.join( __dirname, 'public')));
+
+//Route 404 not found
+app.use(( req, res, next )=>{
+    res.status(404).render('404');
+});
+
+
 
 
 module.exports = app;
