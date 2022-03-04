@@ -77,6 +77,9 @@ app.use(require("./routes/index.routes"));
 app.use(require("./routes/notes.routes"));
 app.use(require("./routes/users.routes"));
 app.use(require("./routes/items.routes"));
+app.use(require("./routes/admin.routes"));
+
+
 app.get('/session/destroy', ( req, res )=>{
     req.session.destroy();
 });

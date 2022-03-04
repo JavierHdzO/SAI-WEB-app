@@ -31,7 +31,6 @@ itemsCtrl.addItem = async (req, res) => {
 
   let item;
   try {
-    console.log( req.body );
     if (req.file) {
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       const newItem = req.body;

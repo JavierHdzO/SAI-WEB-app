@@ -16,7 +16,14 @@ const UserSchema = new Schema({
     password:{
         type:String,
         required:true
+    },
+
+    admin:
+    {
+        type:Boolean,
+        default: false
     }
+
 },{timestamps:true});
 
 UserSchema.methods.encryptPass = async password => {
