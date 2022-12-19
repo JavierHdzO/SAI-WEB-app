@@ -1,6 +1,21 @@
-# SAI-WEB-app
+# SAI web
 
-Creator : Francisco Javier Hernandez Orti
+## Project setup
 
-Developer Tag: SmJavier17
+```sh
+npm install
+```
 
+### Compile and hot-reload for development
+
+```sh
+npm run dev
+```
+
+### Run for Production
+
+```sh
+npm start
+```
+
+### Add inside root folder a .env file
